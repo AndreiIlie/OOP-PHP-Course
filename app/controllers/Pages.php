@@ -1,12 +1,12 @@
 <?php
 
-class Pages {
+class Pages extends Controller {
     public function __construct() {
-        echo 'constructed pages controller<br>';
+        
     }
 
     public function index() {
-        echo 'index executed';
+        $this->view('home');
     }
 }
 
