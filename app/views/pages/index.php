@@ -1,3 +1,7 @@
-<?php require APPROOT . '/views/inc/header.php'; ?>
-    <p><?php echo $data['text']; ?></p>
-<?php require APPROOT . '/views/inc/footer.php'; ?>
+<ul>
+    <?php 
+    foreach($data['posts'] as $post) {
+        echo '<li>' . $post->title . '</li>';
+    }
+    ?>
+</ul>

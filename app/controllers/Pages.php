@@ -2,15 +2,21 @@
 
 class Pages extends Controller {
     public function __construct() {
-
+        $this->postModel = $this->model('Post');
     }
 
     public function index() {
-        $this->view('pages/index', ['text' => 'The Very Red Red']);
+        $posts = $this->postModel->getPosts();
+        $data = [
+            'posts' => $posts
+        ];
+
+
+        $this->view('pages/index', true, $data);
     }
 
     public function about() {
-        $this->view('pages/about', ['text' => 'Are Dă Are']);
+        $this->view('pages/about', true, ['text' => 'Are Dă Are']);
     }
 }
 
