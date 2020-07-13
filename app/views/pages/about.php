@@ -1,1 +1,1 @@
-<h1>We</h1><h5>are are are</h5>
+<h1>We</h1><h5><?php echo $data['text']; ?></h5>
