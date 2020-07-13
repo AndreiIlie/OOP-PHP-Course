@@ -1,0 +1,1 @@
+In order to run/test this application you need to edit the values in config.php and public/.htaccess.
