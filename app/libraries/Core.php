@@ -11,29 +11,34 @@
 
         public function __construct() {
             $url = $this->getUrl();
+            $firstParamMethod = false; // Variable that hold whether the first param was considered a method or not.
 
             // Look in controllers for matching name
             // ucwords - capitalizes the first character of the string
             if(isset($url[0])) {
                 if(file_exists('../app/controllers/' . ucwords($url[0]) . '.php')) {
                     $this->currentController = ucwords($url[0]);
+                } else {
+                    $this->currentMethod = $url[0];
+                    $firstParamMethod = true;
                 }
-                unset($url[0]); // This moved outside prevents links like /hello to be executed as /pages/index/hello.
+                unset($url[0]);
             }
 
             require_once '../app/controllers/' . $this->currentController . '.php';
 
             $this->currentController = new $this->currentController; // Set currentController to object of the controller meant to be used. Defaults to Pages if there are no parameters set.
 
-            if(isset($url[1])) {
-                if(method_exists($this->currentController, $url[1])) {
-                    $this->currentMethod = $url[1]; // Set currentMethod to method name to be called. Default to 'index' if there isn't a second parameter.
-                }
+            if(isset($url[1]) && !$firstParamMethod) {
+                $this->currentMethod = $url[1];
                 unset($url[1]);
             }
-
             $this->params = $url ? array_values($url) : []; // If the $url array still holds variables, it means there are parameters sent by the user to the controller method and we should re-index them. Otherwise empty the array
-            call_user_func_array([$this->currentController, $this->currentMethod], $this->params); // Call the controller method
+            if(method_exists($this->currentController, $this->currentMethod))
+                call_user_func_array([$this->currentController, $this->currentMethod], array($this->params)); // Call the controller method
+                // THE PARAMS NEED TO BE WRAPPED IN AN ARRAY TO ALLOW PASSING MULTIPLE ARGUMENTS AS A SINGLE PARAM
+            else
+                die('Invalid method');
 
         }
         // getUrl() - function that returns the called url sanitized and split by /
