@@ -11,7 +11,29 @@ class Users extends Controller {
                 $this->view('users/login', 1, []);
             break;
             case 'POST':
+            // Initialize data
+            $data = [
+                'username' => trim($_POST['username']),
+                'password' => trim($_POST['password']),
+                'username_err' => '',
+                'password_err' => ''
+            ];
 
+            // Validate username
+            if (empty($data['username'])) {
+                $data['username_err'] = 'Username field cannot be empty';
+            }
+
+            // Validate password
+            if (empty($data['password'])) {
+                $data['password_err'] = 'Password field cannot be empty';
+            }
+
+            if(empty($data['password_err']) && empty($data['username_err'])) {
+                die('good');
+            } else {
+                $this->view('users/login', true, $data);
+            }
             break;
             default:
                 die('Invalid request method');
