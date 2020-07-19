@@ -85,7 +85,13 @@ class Users extends Controller {
 
                 // Make sure errors are empty
                 if(empty($data['username_err']) && empty($data['password_err']) && empty($data['confirm_password_err'])) {
-                    die('yes');
+                    $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+                    if($this->userModel->register($data)) {
+                        flash('register_success', 'You are registered and can log in.');
+                        Redirect('users/login');
+                    } else {
+                        die('error');
+                    }
                 } else {
                     // Load view with errors
                     $this->view('users/register', true, $data);

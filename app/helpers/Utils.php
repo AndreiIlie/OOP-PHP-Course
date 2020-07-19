@@ -6,4 +6,8 @@ function NicePrint($object) {
     echo '</pre>';
 }
 
+function Redirect($newLocation) {
+    header('Location: ' . URLROOT . '/' . $newLocation);
+}
+
 ?>

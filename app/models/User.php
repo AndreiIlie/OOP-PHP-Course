@@ -21,6 +21,19 @@ class User {
             return false;
         }
     }
+
+    public function register($data) {
+        if(empty($data['username']) || empty($data['password']))
+            return false;
+        $this->db->query('INSERT INTO users (username, password) VALUES (:username, :password)');
+        $this->db->bind(':username', $data['username']);
+        $this->db->bind(':password', $data['password']);
+        if($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 

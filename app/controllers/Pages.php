@@ -12,7 +12,7 @@ class Pages extends Controller {
 
     public function hello($params = []) {
         $data = ['test' => 'Hello Stranger!', 'params' => $params];
-        $this->view('pages/testpage', true, $data);
+        $this->view('pages/testpage', false, $data);
     }
 }
 
