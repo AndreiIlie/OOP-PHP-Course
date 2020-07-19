@@ -1,5 +1,6 @@
 <?php
     require_once 'config/config.php';
+    require_once 'helpers/Utils.php';
 
     // Load Libraries if they're found within the libraries folder and there is a class inside with the same name as the file.
 

@@ -2,7 +2,7 @@
 
 class Users extends Controller {
     public function __construct() {
-
+        $this->userModel = $this->model('User');
     }
 
     public function login() {
@@ -11,6 +11,7 @@ class Users extends Controller {
                 $this->view('users/login', 1, []);
             break;
             case 'POST':
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING); // Sanitize POST data
             // Initialize data
             $data = [
                 'username' => trim($_POST['username']),
@@ -62,6 +63,10 @@ class Users extends Controller {
                 // Validate username
                 if(empty($data['username'])) {
                     $data['username_err'] = 'Username field cannot be empty';
+                } else { // Check if username already exists
+                    if($this->userModel->findUserByUsername($data['username'])) {
+                        $data['username_err'] = 'Username already taken';
+                    }
                 }
 
                 // Validate password
