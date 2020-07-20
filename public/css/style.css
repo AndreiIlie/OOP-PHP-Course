@@ -8,28 +8,33 @@ body, html {
     font-size: 0.875rem;
 }
 
-.rounded-ends input {
-    border-radius: 0;
+.rounded-ends > * {
+    border-radius: 0 !important;
     margin-top: -1px;
     position: relative;
     z-index: 0;
+    display: block;
 }
 
-.rounded-ends input:focus {
+.rounded-ends > textarea {
+    resize: vertical;
+}
+
+.rounded-ends > *:focus {
     z-index: 8;
 }
 
-.rounded-ends input:first-of-type {
-    border-radius: 5px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+.rounded-ends > *:first-child {
+    border-radius: 5px  !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
     margin-top: 0;
 }
 
-.rounded-ends input:last-of-type {
-    border-radius: 5px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+.rounded-ends > *:last-child {
+    border-radius: 5px  !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
 }
 
 .is-invalid {

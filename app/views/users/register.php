@@ -9,7 +9,7 @@
                 <input type='text' class='form-control <?php if(!empty($data['username_err'])) echo 'is-invalid'; ?>' name='username' id='opapp-username' placeholder='Username' value='<?php if(isset($data['username'])) echo $data['username']; ?>'>
                 <input type='password' class='form-control <?php if(!empty($data['password_err'])) echo 'is-invalid'; ?>' name='password' id='opapp-password' placeholder='Password'>
                 <input type='password' class='form-control <?php if(!empty($data['confirm_password_err'])) echo 'is-invalid'; ?>' name='confirm_password' id='opapp-password' placeholder='Confirm Password'>
-                <button type='submit' class='btn btn-primary btn-block mt-4'>Sign Up</button>
+                <button type='submit' class='btn btn-primary btn-block'>Sign Up</button>
             </form>
             <?php
             $toEcho = '';

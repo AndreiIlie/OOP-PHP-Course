@@ -14,6 +14,11 @@ class Pages extends Controller {
         $data = ['test' => 'Hello Stranger!', 'params' => $params];
         $this->view('pages/testpage', false, $data);
     }
+
+    public function about() {
+        $data = [];
+        $this->view('pages/about', true, $data);
+    }
 }
 
 ?>

@@ -4,6 +4,9 @@
     <nav class='mx-auto'>
       <a class='p-4 text-dark text-875' href='<?php echo URLROOT; ?>/pages/index'>Home</a>
       <a class='p-4 text-dark text-875' href='<?php echo URLROOT; ?>/pages/about'>About</a>
+      <?php if(isset($_SESSION['user_id'])) : ?>
+        <a class='p-4 text-dark text-875' href='<?php echo URLROOT; ?>/posts/index'>All Posts</a>
+      <?php endif; ?>
       <a class='p-4 text-dark text-875' href='<?php echo URLROOT; ?>/pages/hello'>Test Page</a>
     </nav>
 
