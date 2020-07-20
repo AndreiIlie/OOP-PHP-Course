@@ -30,8 +30,22 @@ class Users extends Controller {
                 $data['password_err'] = 'Password field cannot be empty';
             }
 
+            if($this->userModel->findUserByUsername($data['username'])) {
+
+            } else {
+                $data['username_err'] = 'User not found';
+            }
+
             if(empty($data['password_err']) && empty($data['username_err'])) {
-                die('good');
+                $loggedInUser = $this->userModel->login($data['username'], $data['password']);
+
+                if($loggedInUser) {
+                    $this->createUserSession($loggedInUser);
+                } else {
+                    $data['password_err'] = 'Incorrect password';
+                    $this->view('users/login', true, $data);
+                }
+
             } else {
                 $this->view('users/login', true, $data);
             }
@@ -100,6 +114,27 @@ class Users extends Controller {
             default:
                 die('Invalid request method');
         }
+    }
+
+    public function logout() {
+        unset($_SESSION['user_id']);
+        unset($_SESSION['user_username']);
+        session_destroy();
+        redirect('users/login');
+    }
+
+    public function isLoggedIn() {
+        if(isset($_SESSION['user_id'])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function createUserSession($user) {
+        $_SESSION['user_id'] = $user->id;
+        $_SESSION['user_username'] = $user->username;
+        redirect('pages/index');
     }
 }
 

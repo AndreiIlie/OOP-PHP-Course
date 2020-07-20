@@ -34,6 +34,19 @@ class User {
             return false;
         }
     }
+
+    public function login($username, $password) {
+        $this->db->query('SELECT * FROM users WHERE username = :username');
+        $this->db->bind(':username', $username);
+        $row = $this->db->single();
+        $hashedPw = $row->password;
+        if(password_verify($password, $hashedPw)) {
+            return $row;
+        } else {
+            return false;
+        }
+        
+    }
 }
 
 
